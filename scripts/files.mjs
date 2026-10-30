@@ -1,1 +1,1 @@
-export const siteFiles = ['index.html', 'app.js', 'map.js', 'reviews.js', 'testimonials.json', 'style.css', 'editorial.css', 'editorial.js', 'conteudos', 'assets'];
+export const siteFiles = ['index.html', 'app.js', 'map.js', 'reviews.js', 'testimonials.json', 'style.css', 'editorial.css', 'editorial.js', 'conteudos', 'assets', 'favicon.ico', 'site.webmanifest', 'robots.txt', 'sitemap.xml'];

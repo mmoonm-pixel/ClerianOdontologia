@@ -65,3 +65,11 @@ Chromium em 375, 390, 430, 768, 1024 e 1440 px: menus e âncoras; ausência de d
 ### Correção do CTA de agendamento nos artigos
 
 Nos quatro artigos, um clique em Agendar avaliação abre o mesmo formulário diretamente sobre a leitura, sem redirecionar nem exigir um segundo clique. Testado em Chromium a 375 e 1440 px: URL preservada, formulário único por página, campos/validação, período Tarde, preparação da mensagem para o WhatsApp oficial sem envio real, fechamento por botão e Escape, restauração de posição e foco. Sem erros de JavaScript. Capturas mobile e desktop conferidas. Página inicial e seus estilos/funcionalidades sem alterações.
+
+
+### SEO, identidade da aba e compartilhamento
+
+- Metadados no HTML das cinco páginas, lidos com JavaScript desativado: title, description, canonical, Open Graph e Twitter Card. Título/descrição da página inicial correspondem exatamente aos solicitados. Artigos mantêm título e canonical próprios.
+- Imagem JPEG local validada com 1200 × 630 pixels, inspecionada visualmente; frase e logo dentro da região central segura. Ícones oficiais PNG/ICO, Apple Touch Icon, manifesto, robots e sitemap com referências locais válidas e MIME apropriado na prévia do build.
+- Corpos HTML das cinco páginas comparados ao commit anterior e preservados byte a byte; nenhum componente visual ou funcional alterado. Sem referências a BYO Clinic no HTML servido.
+- A URL publicada era privada e retornava HTTP 401 / Sign in required a visitantes anônimos. Isso impede validadores e robôs externos de ler os metadados; acesso público precisa ser autorizado. Não foi declarada validação externa bem-sucedida enquanto esse bloqueio persistir.

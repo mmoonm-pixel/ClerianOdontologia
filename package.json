@@ -1,10 +1,12 @@
 {
-  "name": "byo-clinic",
+  "name": "clerian-odontologia",
   "version": "1.0.0",
   "private": true,
-  "description": "Site institucional da BYO Clinic, em Maringá–PR.",
+  "description": "Site institucional da Clerian Odontologia em Guarulhos.",
   "type": "module",
-  "engines": { "node": ">=22" },
+  "engines": {
+    "node": ">=22"
+  },
   "scripts": {
     "dev": "node scripts/serve.mjs .",
     "start": "node scripts/serve.mjs .",

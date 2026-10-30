@@ -32,3 +32,11 @@ Capturas completas estabilizam apenas o estado de revelação no contexto de scr
 Chromium nas larguras 375, 390, 430, 768, 1024, 1280 e 1440: navegação horizontal a partir de 960 px, menu mobile com painel e foco contido, nova tipografia Cormorant Garamond local em WOFF2 com Manrope, carrossel com controles ocultos no mobile e toque nativo. Retorno do modal mantém o card escolhido e não apresenta outline de ponteiro nem scroll interno do card. Data/período medidos sem sobreposição em todos os viewports, empilhados no mobile e em duas colunas no desktop. Roteador oferece URLs Google Maps e Waze para o mesmo endereço/ponto confirmado. Modal de rotas fecha e restaura foco/rolagem. Não houve abertura de aplicativos ou envio de mensagens.
 
 A data e o horário são preferências; a equipe confirma o atendimento. A nova copy institucional não adiciona credenciais, especialidades ou dados biográficos. A fotografia e o vídeo originais foram preservados. A geometria do marcador e suas coordenadas também foram mantidas.
+
+## Atualização pontual de navegação e especialidades
+
+Larguras verificadas: 375, 390, 430, 768, 1024 e 1440. Mesmos seis links, na mesma ordem, nos menus e no rodapé: início, especialidades, propósito, doutora, localização e agendamento. IDs únicos, nenhum link interno quebrado, conteúdo das seções preservado e agendamento posicionado após localização para coincidir com a ordem solicitada. Todos os links mobile fecham o painel, restauram a rolagem e deixam o título abaixo do cabeçalho.
+
+A origem da moldura era o outline global de :focus-visible sobre o botão sem cantos definidos. Correção restrita ao menu: sem outline/border/sombra para ponteiro; outline visível e arredondado para teclado. Área de toque 44 × 44 px. SVG fornecido adaptado com transição para X. Capturas abertas/fechadas, carrossel e navegação desktop inspecionadas.
+
+Subtítulo completo em aproximadamente três linhas no mobile. Descrições dos seis serviços já documentados ampliadas, sem incluir outras especialidades nem atribuir técnicas/credenciais. Cards mantêm altura uniforme, snap, arraste, seleção e ativação do agendamento. Não houve inclusão de informações clínicas novas nem envio de mensagens.

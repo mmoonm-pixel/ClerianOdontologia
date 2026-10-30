@@ -1163,11 +1163,11 @@ h1,h2{letter-spacing:-.025em}h2{font-weight:400}
 .desktop-nav a:hover,.desktop-nav a[aria-current]{opacity:1}
 .desktop-nav a:hover::after,.desktop-nav a[aria-current]::after{right:0}
 .menu-toggle{display:none}
-.menu-toggle .stroke-mid{transform-origin:16px 16px}
-.menu-toggle .stroke-top,.menu-toggle .stroke-bottom{transform-origin:16px 16px}
-.menu-toggle[aria-expanded=true] .stroke-top{transform:translateY(7px) rotate(45deg);transform-origin:16px 9px}
-.menu-toggle[aria-expanded=true] .stroke-mid{opacity:0;transform:translateX(4px)}
-.menu-toggle[aria-expanded=true] .stroke-bottom{transform:translateY(-7px) rotate(-45deg);transform-origin:16px 23px}
+
+
+
+
+
 .mobile-menu{padding:26px 30px;background:linear-gradient(140deg,rgba(252,247,250,.99),rgba(234,213,225,.98));border-color:rgba(255,255,255,.8);color:var(--plum);box-shadow:0 25px 90px rgba(45,25,44,.2);max-height:calc(100dvh - 115px);overscroll-behavior:contain}
 .menu-top{display:flex;align-items:center;justify-content:space-between;padding-bottom:22px;border-bottom:1px solid var(--line)}
 .menu-top img{width:64px;height:43px;object-fit:contain}
@@ -1243,5 +1243,31 @@ body:has(dialog[open]) .whatsapp{visibility:hidden}
 }
 @media(prefers-reduced-motion:reduce){.route-sheet[open]{animation:none}.service-card.is-active{transform:none}}
 
-.menu-toggle .menu-stroke{transform-box:view-box}
+
 .route-options .route-arrow{width:16px;height:16px;margin-left:auto;flex:none}
+
+/* Scoped menu focus: pointer taps stay clean; keyboard focus remains visible. */
+.menu-toggle{min-width:44px;min-height:44px;border:0;border-radius:13px;box-shadow:none;align-items:center;justify-content:center}
+.menu-toggle svg{width:28px;height:28px;display:block;margin:auto;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;fill:none}
+.menu-toggle path{transform-box:view-box;transition:transform .32s var(--ease),opacity .22s}
+.menu-toggle .nav-top{transform-origin:14px 8.25px}
+.menu-toggle .nav-middle{transform-origin:15.5px 14px}
+.menu-toggle .nav-smile{transform-origin:14px 20px}
+.menu-toggle[aria-expanded=true] .nav-top{transform:translateY(5.75px) rotate(45deg)}
+.menu-toggle[aria-expanded=true] .nav-middle{transform:translateX(-1.5px) rotate(-45deg) scaleX(1.2727)}
+.menu-toggle[aria-expanded=true] .nav-smile{opacity:0;transform:translateY(2px) scaleX(.8)}
+html[data-input="pointer"] .menu-toggle:focus,html[data-input="pointer"] .menu-toggle:active{outline:none;box-shadow:none}
+html[data-input="keyboard"] .menu-toggle:focus-visible{outline:2px solid var(--lavender);outline-offset:3px;border-radius:13px}
+.desktop-nav{gap:25px}.desktop-nav a{white-space:nowrap}
+.specialties-intro{max-width:750px}
+.specialties-subtitle{max-width:690px;margin-top:18px;font-size:12px;line-height:1.85;color:var(--wine);text-wrap:pretty}
+.services-heading{align-items:flex-end}
+.service-card>p{line-height:1.75;max-width:none}
+@media(max-width:1199px) and (min-width:960px){.desktop-nav{gap:19px}.desktop-nav a{font-size:10px}}
+@media(max-width:639px){
+ .specialties-subtitle{font-size:11px;line-height:1.75;margin-top:15px;max-width:100%;letter-spacing:-.01em}
+ .mobile-menu nav{margin-block:12px 18px}.mobile-menu nav a{padding-block:8px;font-size:27px}
+ .menu-bottom>.button{min-height:45px}.menu-contact{margin-top:15px}
+ .service-card>p{font-size:10.5px;line-height:1.7;margin-bottom:13px}
+ .footer-main>nav{display:grid;grid-template-columns:1fr 1fr;gap:5px 20px}.footer-main>nav>.eyebrow{grid-column:1 / -1}
+}

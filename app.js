@@ -70,7 +70,6 @@ document.addEventListener('keydown', event => {
     else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
   }
 });
-addEventListener('resize', () => { if (innerWidth >= 960 && !menu.hidden) closeMenu(null, true); });
 new ResizeObserver(() => {
   document.documentElement.style.setProperty('--header-offset', `${header.getBoundingClientRect().bottom + 20}px`);
 }).observe(header);
@@ -114,26 +113,13 @@ form.addEventListener('submit', event => {
 $('#year').textContent = new Date().getFullYear();
 
 const video = $('#hero-video');
-const videoButton = $('.video-control');
-let userPausedVideo = false;
-function showVideoState() {
-  const paused = video.paused;
-  videoButton.setAttribute('aria-label', paused ? 'Reproduzir vídeo' : 'Pausar vídeo');
-  videoButton.setAttribute('aria-pressed', String(paused));
-  videoButton.innerHTML = paused ? '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 5 11 7-11 7Z"/></svg>' : '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5v14M15 5v14"/></svg>';
-}
 function videoPreference() {
-  if (reducedMotion.matches) { video.autoplay = false; video.pause(); }
-  else if (!userPausedVideo && !document.hidden) { video.autoplay = true; video.play().catch(() => {}); }
+  if (reducedMotion.matches || document.hidden) { video.autoplay = false; video.pause(); }
+  else { video.autoplay = true; video.play().catch(() => {}); }
 }
-videoButton.addEventListener('click', () => {
-  if (video.paused) { userPausedVideo = false; video.play().catch(() => {}); }
-  else { userPausedVideo = true; video.pause(); }
-});
-video.addEventListener('play', showVideoState); video.addEventListener('pause', showVideoState);
 reducedMotion.addEventListener('change', videoPreference);
-document.addEventListener('visibilitychange', () => { if (document.hidden) video.pause(); else videoPreference(); });
-videoPreference(); showVideoState();
+document.addEventListener('visibilitychange', videoPreference);
+videoPreference();
 
 const reveals = [...document.querySelectorAll('.reveal')];
 if ('IntersectionObserver' in window && !reducedMotion.matches) {
@@ -143,7 +129,7 @@ if ('IntersectionObserver' in window && !reducedMotion.matches) {
   }, { threshold: .06, rootMargin: '0px 0px -12px 0px' });
   reveals.forEach(element => observer.observe(element));
 }
-const links = [...document.querySelectorAll('.desktop-nav a,.mobile-menu nav a')];
+const links = [...document.querySelectorAll('.mobile-menu nav a')];
 const sections = [...document.querySelectorAll('main section[id]')];
 let scrollFrame;
 function updateScroll() {
@@ -156,3 +142,53 @@ function updateScroll() {
 }
 addEventListener('scroll', () => { cancelAnimationFrame(scrollFrame); scrollFrame = requestAnimationFrame(updateScroll); }, { passive: true });
 addEventListener('resize', updateScroll); updateScroll();
+
+// Native touch scrolling, precise scroll snap, keyboard and pointer-drag navigation.
+const track = $('#service-track');
+const cards = [...track.querySelectorAll('.service-card')];
+const dots = $('.carousel-dots');
+cards.forEach((card,index) => {
+  card.setAttribute('role','group');
+  card.setAttribute('aria-roledescription','slide');
+  card.setAttribute('aria-label',`${index + 1} de ${cards.length}: ${card.querySelector('h3').textContent}`);
+  const dot = document.createElement('button');
+  dot.type='button'; dot.setAttribute('aria-label',`Ver ${card.querySelector('h3').textContent}`);
+  dot.addEventListener('click',() => goTo(index)); dots.append(dot);
+});
+let activeCard=0, carouselFrame;
+function goTo(index) {
+  const bounded=Math.max(0,Math.min(cards.length-1,index));
+  const inset=parseFloat(getComputedStyle(track).paddingLeft);
+  track.scrollTo({left:cards[bounded].offsetLeft-track.offsetLeft-inset,behavior:reducedMotion.matches?'instant':'smooth'});
+}
+function syncCarousel() {
+  const inset=parseFloat(getComputedStyle(track).paddingLeft);
+  const target=track.scrollLeft+inset;
+  activeCard=cards.reduce((best,card,i)=>Math.abs(card.offsetLeft-track.offsetLeft-target)<Math.abs(cards[best].offsetLeft-track.offsetLeft-target)?i:best,0);
+  cards.forEach((card,i)=>{card.classList.toggle('is-active',i===activeCard);const dot=dots.children[i];dot.setAttribute('aria-pressed',String(i===activeCard));});
+  $('#service-prev').disabled=activeCard===0;
+  $('#service-next').disabled=activeCard===cards.length-1;
+  $('.carousel-count').textContent=`${String(activeCard+1).padStart(2,'0')} / ${String(cards.length).padStart(2,'0')}`;
+}
+track.addEventListener('scroll',()=>{cancelAnimationFrame(carouselFrame);carouselFrame=requestAnimationFrame(syncCarousel)},{passive:true});
+$('#service-prev').addEventListener('click',()=>goTo(activeCard-1));
+$('#service-next').addEventListener('click',()=>goTo(activeCard+1));
+track.addEventListener('keydown',event=>{
+  if(event.target!==track)return;
+  if(['ArrowRight','ArrowLeft','Home','End'].includes(event.key)){
+    event.preventDefault();goTo(event.key==='Home'?0:event.key==='End'?cards.length-1:activeCard+(event.key==='ArrowRight'?1:-1));
+  }
+});
+let drag;
+track.addEventListener('pointerdown',event=>{
+  if(event.pointerType!=='mouse'||event.button!==0||event.target.closest('button,a'))return;
+  drag={x:event.clientX,scroll:track.scrollLeft,id:event.pointerId,moved:false};
+});
+track.addEventListener('pointermove',event=>{
+  if(!drag)return;
+  const dx=event.clientX-drag.x;
+  if(Math.abs(dx)>5){drag.moved=true;track.setPointerCapture(event.pointerId);track.classList.add('is-dragging');track.scrollLeft=drag.scroll-dx;}
+});
+function finishDrag(){if(!drag)return;track.classList.remove('is-dragging');const snap=activeCard;drag=null;goTo(snap);}
+track.addEventListener('pointerup',finishDrag);track.addEventListener('pointercancel',finishDrag);
+new ResizeObserver(syncCarousel).observe(track);syncCarousel();

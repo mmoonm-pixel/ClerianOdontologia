@@ -33,3 +33,9 @@ O responsável solicitou dez cards de interesse: odontopediatria, ortodontia, tr
 Por isso o site informa, antes dos cards, que são áreas identificadas na comunicação e orienta consultar os atendimentos atualmente disponíveis. Cada CTA é “Consultar atendimento”; o formulário repete a confirmação pela equipe. Não são anunciadas especializações dos profissionais, garantias de oferta, resultados, depoimentos, certificações ou números de pacientes.
 
 Pendentes: validar com a clínica a lista de serviços em atividade, equipe responsável, registros profissionais, nome civil completo, horários e eventual política de privacidade própria. Não foram inventados ou usados como bloqueio para esta prévia visual.
+
+## Refinamento visual posterior
+
+O carrossel passou a mostrar apenas seis áreas documentadas nas fontes consultadas: próteses dentárias, clareamento dental, harmonização orofacial, preenchimento labial, cuidados periodontais e psicologia. Os quatro itens apenas preliminares (odontopediatria, ortodontia, canal e implantes) foram retirados dos cards e do formulário. As descrições não atribuem especializações aos profissionais. A disponibilidade e a indicação individual continuam a ser combinadas no agendamento. O endereço foi conferido novamente no cadastro Locais do Brasil, que mantém Rua Manoel de Freitas, 102, CEP 07176-620.
+
+Ícone WhatsApp: geometria de marca distribuída por Simple Icons, arquivo https://cdn.jsdelivr.net/npm/simple-icons@v14/icons/whatsapp.svg. O símbolo é exibido em branco no contêiner institucional, sem redesenho do glifo.

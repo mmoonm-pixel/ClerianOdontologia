@@ -16,7 +16,7 @@
     let loaded = 0;
     tiles.on('tileload', () => { loaded++; element.dataset.tilesLoaded = String(loaded); status.textContent = 'Rua Manoel de Freitas, 102 · Guarulhos'; });
     tiles.on('tileerror', () => { if (!loaded) status.textContent = 'Mapa indisponível. Use o botão Como chegar.'; });
-    const icon = L.divIcon({ className: 'clerian-pin', html: '<div class="pin-body"><span>C</span></div>', iconSize: [42,42], iconAnchor: [21,42], popupAnchor: [0,-40] });
+    const icon = L.divIcon({ className: 'clerian-pin', html: '<div class="pin-body"><img src="assets/logo-clerian-transparente.png" alt=""></div>', iconSize: [64,64], iconAnchor: [32,64], popupAnchor: [0,-60] });
     const marker = L.marker(center, { icon, title: 'Clerian Odontologia — Rua Manoel de Freitas, 102', alt: 'Clerian Odontologia' }).addTo(map);
     marker.bindPopup(`<strong>Clerian Odontologia</strong><br>Rua Manoel de Freitas, 102<br>Jardim Álamo · Guarulhos — SP<br><a href="${route}" target="_blank" rel="noopener">Como chegar ↗</a>`);
     button.addEventListener('click', () => {

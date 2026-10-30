@@ -39,3 +39,9 @@ Pendentes: validar com a clínica a lista de serviços em atividade, equipe resp
 O carrossel passou a mostrar apenas seis áreas documentadas nas fontes consultadas: próteses dentárias, clareamento dental, harmonização orofacial, preenchimento labial, cuidados periodontais e psicologia. Os quatro itens apenas preliminares (odontopediatria, ortodontia, canal e implantes) foram retirados dos cards e do formulário. As descrições não atribuem especializações aos profissionais. A disponibilidade e a indicação individual continuam a ser combinadas no agendamento. O endereço foi conferido novamente no cadastro Locais do Brasil, que mantém Rua Manoel de Freitas, 102, CEP 07176-620.
 
 Ícone WhatsApp: geometria de marca distribuída por Simple Icons, arquivo https://cdn.jsdelivr.net/npm/simple-icons@v14/icons/whatsapp.svg. O símbolo é exibido em branco no contêiner institucional, sem redesenho do glifo.
+
+## Depoimentos fornecidos nesta etapa
+
+Os 24 relatos e nomes foram transcritos do conteúdo enviado pelo responsável nesta conversa. O responsável confirmou expressamente que todos têm cinco estrelas. A origem Google foi indicada no pedido; não foi realizada verificação independente por API ou em fichas individuais. Os textos completos foram preservados em testimonials.json e no HTML. Comentários maiores têm expansão de leitura, sem reescrita ou cortes permanentes. Sem datas, fotos, avatares, nota média agregada ou schema de avaliações. Nenhum atendimento atual ou credencial foi inferido dos relatos.
+
+Conteúdos aponta somente aos dois perfis oficiais já utilizados no site, sem inventar artigos ou publicações. Dúvidas frequentes usa informações práticas já confirmadas sobre endereço, canal de contato e fluxo de solicitação/confirmacão de agendamento.

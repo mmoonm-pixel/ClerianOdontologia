@@ -40,3 +40,11 @@ Larguras verificadas: 375, 390, 430, 768, 1024 e 1440. Mesmos seis links, na mes
 A origem da moldura era o outline global de :focus-visible sobre o botão sem cantos definidos. Correção restrita ao menu: sem outline/border/sombra para ponteiro; outline visível e arredondado para teclado. Área de toque 44 × 44 px. SVG fornecido adaptado com transição para X. Capturas abertas/fechadas, carrossel e navegação desktop inspecionadas.
 
 Subtítulo completo em aproximadamente três linhas no mobile. Descrições dos seis serviços já documentados ampliadas, sem incluir outras especialidades nem atribuir técnicas/credenciais. Cards mantêm altura uniforme, snap, arraste, seleção e ativação do agendamento. Não houve inclusão de informações clínicas novas nem envio de mensagens.
+
+## Expansão de conteúdo e depoimentos
+
+Nova navegação com nove destinos reais, na mesma ordem em menus e rodapé. Adicionadas seções leves de conteúdos (perfis oficiais) e dúvidas práticas para receber as âncoras planejadas. Relatos inseridos entre conteúdos e dúvidas. Textos das seis seções anteriormente aprovadas foram comparados com a versão anterior e permaneceram iguais.
+
+24 relatos fornecidos pelo responsável, com cinco estrelas expressamente confirmadas na conversa. Conteúdo integral comparado automaticamente entre JSON e HTML para todos os 24 registros. Sem fotos, avatares ou datas. Expansão/recolhimento dos textos longos preserva cada palavra. Não foram publicadas médias agregadas ou notas coletadas por API.
+
+Chromium em 375, 390, 430, 768, 1024 e 1440 px: menus e âncoras; ausência de duplicação de IDs; ausência de overflow horizontal; carrossel de relatos por toque, mouse, setas e teclado até o último relato; revelações ao entrar/sair/retornar; modo de movimento reduzido; expansão de texto e FAQ. Tiles do mapa preservam a ponte TLS usada nas validações anteriores. Capturas mobile/desktop dos relatos e dos menus foram inspecionadas.

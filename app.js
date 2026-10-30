@@ -1,3 +1,7 @@
+let keyboardInput=false;
+document.documentElement.dataset.input='pointer';
+document.addEventListener('pointerdown',()=>{keyboardInput=false;document.documentElement.dataset.input='pointer'},true);
+document.addEventListener('keydown',event=>{if(['Tab','Enter',' '].includes(event.key)){keyboardInput=true;document.documentElement.dataset.input='keyboard'}},true);
 const $ = selector => document.querySelector(selector);
 const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
 const header = $('#site-header');
@@ -36,7 +40,7 @@ function openMenu() {
   menu.hidden = false; menu.inert = false; shade.hidden = false;
   menuButton.setAttribute('aria-expanded', 'true');
   menuButton.setAttribute('aria-label', 'Fechar menu');
-  requestAnimationFrame(() => document.body.classList.add('menu-is-open'));
+  requestAnimationFrame(() => {document.body.classList.add('menu-is-open');$('.menu-close').focus({preventScroll:true})});
 }
 function closeMenu(destination, immediate = false) {
   if (menu.hidden) return;
@@ -55,6 +59,8 @@ function closeMenu(destination, immediate = false) {
   else menuClosingTimer = setTimeout(finish, 300);
 }
 menuButton.addEventListener('click', () => menuButton.getAttribute('aria-expanded') === 'true' ? closeMenu() : openMenu());
+$('.menu-close').addEventListener('click',()=>closeMenu());
+addEventListener('resize',()=>{if(innerWidth>=960&&!menu.hidden)closeMenu(null,true)});
 shade.addEventListener('click', () => closeMenu());
 menu.querySelectorAll('a[href^="#"]').forEach(link => link.addEventListener('click', event => {
   event.preventDefault(); closeMenu(link.hash);
@@ -64,7 +70,7 @@ document.addEventListener('keydown', event => {
   if (menu.hidden || menuButton.getAttribute('aria-expanded') !== 'true') return;
   if (event.key === 'Escape') { event.preventDefault(); closeMenu(); }
   if (event.key === 'Tab') {
-    const targets = [menuButton, ...menu.querySelectorAll('a')];
+    const targets = [...menu.querySelectorAll('button,a')];
     const first = targets[0], last = targets.at(-1);
     if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
     else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
@@ -79,7 +85,10 @@ function openBooking(trigger) {
   form.reset(); form.elements.nome.setCustomValidity('');
   $('#form-status').textContent = '';
   form.elements.area.value = trigger.dataset.area || '';
-  modalTrigger = trigger; lockPage(); modal.showModal();
+  modalTrigger = trigger;
+  const selectedCard=trigger.closest('.service-card');
+  if(selectedCard){const index=cards.indexOf(selectedCard);track.scrollTo({left:selectedCard.offsetLeft-track.offsetLeft-parseFloat(getComputedStyle(track).paddingLeft),behavior:'instant'});syncCarousel();}
+  lockPage(); modal.showModal();
   modal.scrollTop = 0;
   $('.modal-close').focus({ preventScroll: true });
 }
@@ -145,7 +154,7 @@ function configureReveals() {
 }
 configureReveals();
 reducedMotion.addEventListener('change',configureReveals);
-const links = [...document.querySelectorAll('.mobile-menu nav a')];
+const links = [...document.querySelectorAll('.mobile-menu nav a,.desktop-nav a')];
 const sections = [...document.querySelectorAll('main section[id]')];
 let scrollFrame;
 function updateScroll() {
@@ -230,3 +239,17 @@ track.addEventListener('click',event=>{
   openBooking(card.querySelector('[data-book]'));
 });
 new ResizeObserver(syncCarousel).observe(track);syncCarousel();
+
+// Small route chooser, shared by the map popup and address card.
+const routeModal=$('#route-modal');let routeTrigger;
+function openRoutes(trigger){
+ if(routeModal.open)return;
+ if(!menu.hidden)closeMenu(null,true);
+ routeTrigger=trigger;lockPage();routeModal.showModal();$('.route-close').focus({preventScroll:true});
+}
+document.addEventListener('click',event=>{const trigger=event.target.closest('[data-route]');if(trigger)openRoutes(trigger)});
+$('.location-details').addEventListener('click',event=>{if(!event.target.closest('button,a'))openRoutes($('.route-trigger'))});
+document.addEventListener('clerian:routes',event=>openRoutes(event.detail));
+$('.route-close').addEventListener('click',()=>routeModal.close());
+routeModal.addEventListener('click',event=>{if(event.target===routeModal){const r=routeModal.getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)routeModal.close()}});
+routeModal.addEventListener('close',()=>{unlockPage();routeTrigger?.focus({preventScroll:true})});

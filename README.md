@@ -40,3 +40,5 @@ O mapa tem arraste desativado inicialmente para preservar a rolagem da página; 
 Navegação com teclado, link de salto, foco visível, dialog nativo, controle do vídeo, suporte a movimento reduzido, fontes locais e carrossel com snap, setas, indicadores, teclado, arraste por mouse e toque nativo. Sem JavaScript, o conteúdo continua legível e os links diretos do WhatsApp e de rotas permanecem disponíveis.
 
 O cabeçalho usa o menu de sorriso em todas as larguras. O hero reproduz o vídeo em loop e sem som; com movimento reduzido, usa o frame estático da Clerian. A foto da doutora cobre toda a seção e o mapa usa a logo original dentro do marcador.
+
+Polimento de interface: títulos em Cormorant Garamond (OFL, hospedada localmente em WOFF2); navegação desktop horizontal; painel mobile com fechamento próprio; seletor de rotas compartilhado entre mapa e endereço, com Google Maps e Waze. O formulário empilha data/período em celulares, sem alterar o fluxo WhatsApp.

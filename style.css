@@ -12,7 +12,7 @@
   --line:rgba(113,52,81,.17);
   --light-line:rgba(234,213,225,.24);
   --shadow:0 20px 65px rgba(66,29,67,.09);
-  --serif:'Bodoni Moda',Georgia,serif;
+  --serif:'Cormorant Garamond',Georgia,serif;
   --sans:Manrope,Arial,sans-serif;
   --radius:22px;
   --header-offset:122px;
@@ -1064,7 +1064,8 @@ body:has(#booking-modal[open]) .whatsapp {
 .service-card.is-active{transform:scale(1.018);border-color:rgba(113,52,81,.32);background:linear-gradient(135deg,rgba(255,255,255,.92),rgba(234,213,225,.55));box-shadow:inset 1px 1px 0 var(--white),inset -1px -1px 0 rgba(113,52,81,.12),0 14px 30px rgba(66,29,67,.1)}
 .service-card:hover{transform:translateY(-3px)}
 .service-card.is-active:hover{transform:translateY(-3px) scale(1.018)}
-.service-card:focus-within{outline:2px solid var(--rose);outline-offset:3px}
+html[data-input="keyboard"] .service-card:focus-within{outline:2px solid var(--rose);outline-offset:3px}
+html[data-input="pointer"] .service-card :focus{outline:none;box-shadow:none}
 .service-card{cursor:pointer}
 .service-card.is-active::before{transform:translate(-12px,20px) scale(1.07)}
 .service-card:hover::before{transform:translate(-20px,30px) scale(1.15)}
@@ -1153,3 +1154,94 @@ body:has(#booking-modal[open]) .whatsapp {
  .booking-card>.button{min-height:46px;width:100%;font-size:11px}
 }
 @media(prefers-reduced-motion:reduce){.service-card.is-active,.service-card.is-active:hover{transform:none}.motion-ready .reveal.is-visible{transition-delay:0ms}}
+
+/* Product polish: local editorial type, clear navigation and deliberate form rhythm. */
+h1,h2{letter-spacing:-.025em}h2{font-weight:400}
+.desktop-nav{display:flex;align-items:center;gap:30px;margin-left:auto}
+.desktop-nav a{font-size:11px;position:relative;padding:12px 0;color:var(--white);opacity:.9;transition:opacity .25s}
+.desktop-nav a::after{content:'';position:absolute;left:0;right:100%;bottom:5px;height:1px;background:var(--lavender);transition:right .3s}
+.desktop-nav a:hover,.desktop-nav a[aria-current]{opacity:1}
+.desktop-nav a:hover::after,.desktop-nav a[aria-current]::after{right:0}
+.menu-toggle{display:none}
+.menu-toggle .stroke-mid{transform-origin:16px 16px}
+.menu-toggle .stroke-top,.menu-toggle .stroke-bottom{transform-origin:16px 16px}
+.menu-toggle[aria-expanded=true] .stroke-top{transform:translateY(7px) rotate(45deg);transform-origin:16px 9px}
+.menu-toggle[aria-expanded=true] .stroke-mid{opacity:0;transform:translateX(4px)}
+.menu-toggle[aria-expanded=true] .stroke-bottom{transform:translateY(-7px) rotate(-45deg);transform-origin:16px 23px}
+.mobile-menu{padding:26px 30px;background:linear-gradient(140deg,rgba(252,247,250,.99),rgba(234,213,225,.98));border-color:rgba(255,255,255,.8);color:var(--plum);box-shadow:0 25px 90px rgba(45,25,44,.2);max-height:calc(100dvh - 115px);overscroll-behavior:contain}
+.menu-top{display:flex;align-items:center;justify-content:space-between;padding-bottom:22px;border-bottom:1px solid var(--line)}
+.menu-top img{width:64px;height:43px;object-fit:contain}
+.menu-close{width:38px;height:38px;padding:9px;border:1px solid var(--line);border-radius:50%;background:rgba(255,255,255,.5);color:var(--wine)}
+.menu-close svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.2}
+.mobile-menu nav{margin:17px 0 23px;counter-reset:menu}
+.mobile-menu nav a{display:flex;align-items:center;gap:18px;font-family:var(--serif);font-size:31px;padding:10px 0;border-bottom:1px solid var(--line);transition:color .3s,transform .3s}
+.mobile-menu nav a::before{counter-increment:menu;content:'0' counter(menu);font:400 9px var(--sans);color:var(--purple)}
+.mobile-menu nav a:hover{transform:translateX(4px);color:var(--wine)}
+.menu-bottom>.button{width:100%;min-height:47px;font-size:11px}
+.menu-contact{color:var(--wine);display:flex;justify-content:space-between;gap:12px;margin-top:18px;font-size:10px;line-height:1.6}
+.menu-contact strong{font-size:12px;font-weight:500}
+.service-track{gap:20px;padding-top:12px}
+.service-card{flex-basis:340px;min-height:246px;padding:23px 25px 20px;border-radius:28px}
+.service-track::after{width:max(0px,calc(100vw - 340px - var(--inset)*2 - 20px))}
+.service-top{margin-bottom:14px}.service-icon{width:32px;height:32px}
+.service-card h3{font-size:27px;line-height:1.14;margin-bottom:9px;letter-spacing:-.015em}
+.service-card>p{font-size:11px;line-height:1.8;margin-bottom:17px}
+.service-card .text-link{font-size:10px}.service-card .text-link svg{width:34px;height:34px;padding:9px}
+.service-card.is-active{border-color:rgba(113,52,81,.4);box-shadow:inset 0 1px 0 var(--white),0 12px 27px rgba(66,29,67,.11)}
+.service-card :focus-visible{outline-offset:4px}
+.doctor-copy{max-width:465px}.doctor-copy h2{line-height:1.08;margin-bottom:25px}
+.doctor-copy p{font-size:13px;line-height:1.95}.doctor-copy p+p{margin-top:19px}
+.doctor-copy .doctor-intro{font-family:var(--serif);font-size:25px;line-height:1.35;color:var(--white);margin-bottom:22px}
+.essence h2{line-height:1.12}.essence-copy p{line-height:2}
+#booking-modal{width:min(620px,calc(100% - 28px));border-radius:28px;background:var(--blush);border:1px solid rgba(255,255,255,.9)}
+.modal-header{padding:32px 34px 27px;background:linear-gradient(140deg,var(--lavender),var(--blush));border-bottom:1px solid var(--line)}
+.modal-header h2{font-size:43px;line-height:1.07;margin-top:16px}
+.modal-header p{font-size:11px;max-width:330px;margin-top:15px}.modal-close{background:rgba(255,255,255,.55)}
+#booking-form{padding:27px 34px 30px}
+#booking-form label{font-size:11px;font-weight:500;letter-spacing:.01em;margin-bottom:21px;min-width:0}
+input,select,textarea{min-height:51px;border-radius:12px;background:var(--white);border-color:rgba(113,52,81,.2);padding:13px 14px;font-size:14px;line-height:1.45;box-sizing:border-box;max-width:100%;transition:border-color .25s,box-shadow .25s,background .25s}
+select{appearance:none;padding-right:36px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23713451' stroke-width='1.5'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center}
+input[type=date]{width:100%;min-width:0;font-variant-numeric:tabular-nums}
+input[type=date]::-webkit-date-and-time-value{text-align:left}
+input:focus,select:focus,textarea:focus{box-shadow:0 0 0 4px rgba(183,129,158,.12);border-color:var(--purple)}
+.form-row{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:18px}
+textarea{min-height:94px}.field-note{font-size:9px;margin-bottom:24px;line-height:1.7}.form-notice{font-size:10px;padding-top:2px}
+#booking-form>.button{min-height:52px}.modal-close:hover{background:var(--white);transform:rotate(4deg)}
+.location-layout{transition:box-shadow .5s,border-color .4s}
+.location-layout.is-exploring,.location-layout:focus-within{border-color:var(--rose);box-shadow:0 24px 65px rgba(66,29,67,.16),0 0 0 5px rgba(234,213,225,.35)}
+.location-details{background:linear-gradient(120deg,rgba(255,255,255,.98),rgba(252,247,250,.9));cursor:pointer}
+.route-trigger svg{width:19px}.route-trigger:hover svg{transform:translateY(-2px)}
+.popup-route{font:500 11px var(--sans);padding:7px 12px;border-radius:40px;border:1px solid var(--line);background:var(--blush);color:var(--wine);margin-top:9px}
+.route-sheet{width:min(460px,calc(100% - 32px));border:1px solid rgba(255,255,255,.9);border-radius:28px;background:linear-gradient(135deg,var(--blush),rgba(234,213,225,.97));color:var(--ink);padding:40px;box-shadow:0 30px 100px rgba(45,25,44,.25)}
+.route-sheet::backdrop{background:rgba(45,25,44,.55);backdrop-filter:blur(10px)}
+.route-sheet[open]{animation:dialogEnter .3s var(--ease)}
+.route-close{position:absolute;right:20px;top:20px}.route-sheet>.eyebrow{font-size:8px;padding-right:20px}
+.route-sheet h2{font-size:43px;line-height:1.08;margin:25px 0 18px}.route-sheet h2 em{color:var(--wine)}
+.route-sheet>p{font-size:11px;line-height:1.9}.route-options{display:grid;gap:11px;margin-top:25px}
+.route-options>a{display:flex;align-items:center;gap:16px;padding:16px 18px;border-radius:17px;border:1px solid rgba(113,52,81,.13);background:rgba(255,255,255,.7);color:var(--wine);transition:transform .25s,background .25s,box-shadow .25s}
+.route-options>a:hover{transform:translateY(-2px);background:var(--white);box-shadow:var(--shadow)}
+.route-options>a>span:last-child{margin-left:auto;font-size:20px}.route-options strong{display:block;font-size:13px;font-weight:600}.route-options small{display:block;font-size:9px;color:var(--muted);margin-top:2px}
+.route-letter{font:500 27px var(--sans);width:26px;text-align:center}.route-options svg{width:26px;height:26px;stroke:currentColor;fill:none;stroke-width:1.2;flex:none}
+.route-note{display:block;font-size:9px;color:var(--muted);margin-top:21px;line-height:1.8}
+body:has(dialog[open]) .whatsapp{visibility:hidden}
+.whatsapp{width:50px;height:50px;box-shadow:0 5px 18px rgba(45,25,44,.15)}.whatsapp>img{width:24px;height:24px}
+@media(max-width:959px){.desktop-nav{display:none}.menu-toggle{display:block}.service-card{flex-basis:320px}.service-track::after{width:calc(100vw - 320px - var(--inset)*2 - 20px)}}
+@media(max-width:639px){
+ .mobile-menu{padding:22px 25px;border-radius:23px;max-height:calc(100dvh - 110px)}.menu-top{padding-bottom:17px}.mobile-menu nav a{font-size:28px;padding-block:9px}.menu-contact{font-size:9px}.menu-contact strong{font-size:11px}
+ .hero h1{font-size:clamp(34px,9vw,44px);line-height:1.06}.services-heading h2{font-size:34px;line-height:1.1}
+ .service-track{gap:15px}.service-card{flex-basis:calc(100vw - 90px);min-height:226px;padding:20px;border-radius:25px}.service-track::after{width:35px}
+ .service-icon{width:29px;height:29px}.service-top{margin-bottom:12px}.service-card h3{font-size:26px}.service-card>p{font-size:11px;margin-bottom:14px;line-height:1.7}.service-card .text-link{font-size:9px}
+ .service-card .text-link svg{width:30px;height:30px;padding:8px}.service-card.is-active{transform:scale(1.012)}
+ .essence h2{font-size:42px}.essence-copy p{font-size:13px;line-height:1.95}
+ .doctor-copy h2{font-size:39px}.doctor-copy .doctor-intro{font-size:23px}.doctor-copy p{font-size:12px;line-height:1.95}.doctor-copy p+p{margin-top:18px}.doctor-content{padding-top:480px}
+ .doctor::before{background:linear-gradient(180deg,transparent 13%,rgba(45,25,44,.08) 30%,rgba(45,25,44,.9) 47%,var(--plum) 70%)}
+ .modal-header{padding:27px 24px 23px}.modal-header h2{font-size:37px}.modal-header .eyebrow{font-size:7px}#booking-form{padding:23px 24px 26px}
+ #booking-form label{font-size:11px;margin-bottom:18px}input,select,textarea{font-size:16px;min-height:50px}.form-row{grid-template-columns:minmax(0,1fr);gap:0}.field-note{margin-top:-9px}
+ #booking-modal{max-height:calc(100dvh - 24px - env(safe-area-inset-top) - env(safe-area-inset-bottom));border-radius:24px}
+ .route-sheet{position:fixed;inset:auto 0 0;width:100%;max-width:none;max-height:90dvh;margin:0;border-radius:28px 28px 0 0;padding:32px 27px calc(30px + env(safe-area-inset-bottom))}.route-sheet h2{font-size:40px}.route-options>a{padding:16px}
+ .whatsapp{width:44px;height:44px;right:max(14px,env(safe-area-inset-right));bottom:max(14px,env(safe-area-inset-bottom))}.whatsapp>img{width:22px;height:22px}
+}
+@media(prefers-reduced-motion:reduce){.route-sheet[open]{animation:none}.service-card.is-active{transform:none}}
+
+.menu-toggle .menu-stroke{transform-box:view-box}
+.route-options .route-arrow{width:16px;height:16px;margin-left:auto;flex:none}

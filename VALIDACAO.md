@@ -26,3 +26,9 @@ Testado em 375, 390, 430, 768 e 1440 px: cards compactos; controles ocultos apen
 Revelações verificadas na entrada, na saída completa e no retorno, com limiar de 15% para entrada, sem reset nas pequenas oscilações. Fundo contínuo independente da revelação. Card de agendamento medido em cerca de 254 px de altura no mobile, 225 px em desktop e 190 px em tablet. Copy da doutora ampliada com fotografia de fundo preservada. Hero, localização e rodapé conservam o HTML aprovado; map.js não foi modificado.
 
 Capturas completas estabilizam apenas o estado de revelação no contexto de screenshot para mostrar todas as seções. A aplicação mantém as animações repetidas.
+
+## Polimento avançado
+
+Chromium nas larguras 375, 390, 430, 768, 1024, 1280 e 1440: navegação horizontal a partir de 960 px, menu mobile com painel e foco contido, nova tipografia Cormorant Garamond local em WOFF2 com Manrope, carrossel com controles ocultos no mobile e toque nativo. Retorno do modal mantém o card escolhido e não apresenta outline de ponteiro nem scroll interno do card. Data/período medidos sem sobreposição em todos os viewports, empilhados no mobile e em duas colunas no desktop. Roteador oferece URLs Google Maps e Waze para o mesmo endereço/ponto confirmado. Modal de rotas fecha e restaura foco/rolagem. Não houve abertura de aplicativos ou envio de mensagens.
+
+A data e o horário são preferências; a equipe confirma o atendimento. A nova copy institucional não adiciona credenciais, especialidades ou dados biográficos. A fotografia e o vídeo originais foram preservados. A geometria do marcador e suas coordenadas também foram mantidas.

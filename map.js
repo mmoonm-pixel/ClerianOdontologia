@@ -18,11 +18,19 @@
     tiles.on('tileerror', () => { if (!loaded) status.textContent = 'Mapa indisponível. Use o botão Como chegar.'; });
     const icon = L.divIcon({ className: 'clerian-pin', html: '<div class="pin-body"><img src="assets/logo-clerian-transparente.png" alt=""></div>', iconSize: [64,64], iconAnchor: [32,64], popupAnchor: [0,-60] });
     const marker = L.marker(center, { icon, title: 'Clerian Odontologia — Rua Manoel de Freitas, 102', alt: 'Clerian Odontologia' }).addTo(map);
-    marker.bindPopup(`<strong>Clerian Odontologia</strong><br>Rua Manoel de Freitas, 102<br>Jardim Álamo · Guarulhos — SP<br><a href="${route}" target="_blank" rel="noopener">Como chegar ↗</a>`);
+    marker.bindPopup(`<strong>Clerian Odontologia</strong><br>Rua Manoel de Freitas, 102<br>Jardim Álamo · Guarulhos — SP<br><button class="popup-route" data-route>Escolher rota</button>`);
+    marker.on('popupopen',event=>{
+      const action=event.popup.getElement().querySelector('[data-route]');
+      action.onclick=click=>{
+        click.preventDefault();click.stopPropagation();
+        document.dispatchEvent(new CustomEvent('clerian:routes',{detail:action}));
+      };
+    });
     button.addEventListener('click', () => {
       const enabled = !map.dragging.enabled();
       if (enabled) { map.dragging.enable(); map.keyboard.enable(); marker.openPopup(); element.focus({ preventScroll: true }); }
       else { map.dragging.disable(); map.keyboard.disable(); marker.closePopup(); }
+      element.closest('.location-layout').classList.toggle('is-exploring',enabled);
       button.setAttribute('aria-pressed', String(enabled));
       button.textContent = enabled ? 'Concluir exploração' : 'Explorar mapa ↗';
       status.textContent = enabled ? 'Use os controles + e − para aproximar.' : 'Rua Manoel de Freitas, 102 · Guarulhos';

@@ -5,6 +5,7 @@ const contents = [...document.querySelectorAll('.reading-index a')];
 let framePending = false;
 function updateReading() {
   framePending = false;
+  if (window.ClerianMotion.scroll.isLocked) return;
   const start = body.getBoundingClientRect().top + scrollY;
   const end = start + body.offsetHeight - innerHeight + 120;
   const value = Math.max(0, Math.min(1, (scrollY - start + 120) / Math.max(1, end - start + 120)));
@@ -23,6 +24,7 @@ function scheduleReading() {
 addEventListener('scroll', scheduleReading, { passive:true });
 addEventListener('resize', scheduleReading);
 addEventListener('pageshow', scheduleReading);
+document.addEventListener('clerian:motion-resume',scheduleReading);
 document.fonts.ready.then(scheduleReading);
 updateReading();
 
@@ -33,36 +35,17 @@ updateReading();
   if (!modal || !form) return;
   const close = modal.querySelector('.modal-close');
   const status = document.getElementById('form-status');
-  let trigger, savedScroll = 0;
+  const motion = window.ClerianMotion;
   document.querySelectorAll('[data-article-book]').forEach(button => {
     button.addEventListener('click', () => {
       if (modal.open) return;
-      trigger = button;
-      savedScroll = scrollY;
       form.reset();
       form.elements.nome.setCustomValidity('');
       status.textContent = '';
-      document.body.style.position = 'fixed';
-      document.body.style.top = `-${savedScroll}px`;
-      document.body.style.width = '100%';
-      modal.showModal();
-      modal.scrollTop = 0;
-      close.focus({ preventScroll:true });
+      motion.dialog.open(modal,{trigger:button,initialFocus:close});
     });
   });
-  close.addEventListener('click', () => modal.close());
-  modal.addEventListener('click', event => {
-    if (event.target !== modal) return;
-    const box = modal.getBoundingClientRect();
-    if (event.clientX < box.left || event.clientX > box.right || event.clientY < box.top || event.clientY > box.bottom) modal.close();
-  });
-  modal.addEventListener('close', () => {
-    document.body.style.position = '';
-    document.body.style.top = '';
-    document.body.style.width = '';
-    scrollTo({ top:savedScroll, behavior:'instant' });
-    trigger?.focus({ preventScroll:true });
-  });
+  close.addEventListener('click',()=>motion.dialog.close(modal));
   const today = new Date();
   today.setMinutes(today.getMinutes() - today.getTimezoneOffset());
   form.elements.data.min = today.toISOString().slice(0, 10);

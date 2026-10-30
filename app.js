@@ -11,25 +11,11 @@ const shade = $('.menu-shade');
 const modal = $('#booking-modal');
 const form = $('#booking-form');
 const whatsapp = 'https://wa.me/5511992584747';
-let lockedScroll = 0, pageLocked = false, modalTrigger;
+const motion = window.ClerianMotion;
 let menuClosingTimer;
 
-function lockPage() {
-  if (pageLocked) return;
-  pageLocked = true;
-  lockedScroll = scrollY;
-  document.body.style.position = 'fixed';
-  document.body.style.top = `-${lockedScroll}px`;
-  document.body.style.width = '100%';
-}
-function unlockPage() {
-  if (!pageLocked) return;
-  document.body.style.position = '';
-  document.body.style.top = '';
-  document.body.style.width = '';
-  scrollTo({ top: lockedScroll, behavior: 'instant' });
-  pageLocked = false;
-}
+function lockPage() { motion.scroll.lock('navigation'); }
+function unlockPage() { motion.scroll.unlock('navigation'); }
 function inertContent(value) {
   $('main').inert = value;
   $('footer').inert = value;
@@ -85,21 +71,13 @@ function openBooking(trigger) {
   form.reset(); form.elements.nome.setCustomValidity('');
   $('#form-status').textContent = '';
   form.elements.area.value = trigger.dataset.area || '';
-  modalTrigger = trigger;
   const selectedCard=trigger.closest('.service-card');
   if(selectedCard){const index=cards.indexOf(selectedCard);track.scrollTo({left:selectedCard.offsetLeft-track.offsetLeft-parseFloat(getComputedStyle(track).paddingLeft),behavior:'instant'});syncCarousel();}
-  lockPage(); modal.showModal();
-  modal.scrollTop = 0;
-  $('.modal-close').focus({ preventScroll: true });
+  motion.dialog.open(modal, {trigger,initialFocus:modal.querySelector('.modal-close')});
 }
 document.querySelectorAll('[data-book]:not(.service-card [data-book])').forEach(button => button.addEventListener('click', () => openBooking(button)));
-$('.modal-close').addEventListener('click', () => modal.close());
-modal.addEventListener('click', event => {
-  if (event.target !== modal) return;
-  const box = modal.getBoundingClientRect();
-  if (event.clientX < box.left || event.clientX > box.right || event.clientY < box.top || event.clientY > box.bottom) modal.close();
-});
-modal.addEventListener('close', () => { unlockPage(); modalTrigger?.focus({ preventScroll: true }); });
+modal.querySelector('.modal-close').addEventListener('click', () => motion.dialog.close(modal));
+document.addEventListener('click',event=>{const trigger=event.target.closest('[data-article-book]');if(trigger)openBooking(trigger)});
 form.elements.nome.addEventListener('input', () => form.elements.nome.setCustomValidity(''));
 const today = new Date(); today.setMinutes(today.getMinutes() - today.getTimezoneOffset());
 form.elements.data.min = today.toISOString().slice(0, 10);
@@ -141,10 +119,11 @@ function configureReveals() {
   }
   document.body.classList.add('motion-ready');
   document.querySelectorAll('main section').forEach(section => {
-    section.querySelectorAll('.reveal').forEach((element,index) => element.style.setProperty('--reveal-delay',`${Math.min(index,2)*120}ms`));
+    section.querySelectorAll('.reveal').forEach((element,index) => element.style.setProperty('--reveal-delay',`${Math.min(index,3)*75}ms`));
   });
   // Enter at 15%; re-arm only after leaving the viewport completely.
   revealObserver = new IntersectionObserver(entries => {
+    if (document.documentElement.dataset.motionFrozen) return;
     for (const entry of entries) {
       if (entry.intersectionRatio >= .15) entry.target.classList.add('is-visible');
       else if (!entry.isIntersecting) entry.target.classList.remove('is-visible');
@@ -154,11 +133,15 @@ function configureReveals() {
 }
 configureReveals();
 reducedMotion.addEventListener('change',configureReveals);
+document.addEventListener('clerian:motion-resume',()=>{
+  revealObserver?.disconnect();
+  if(!reducedMotion.matches)reveals.forEach(element=>revealObserver?.observe(element));
+});
 const links = [...document.querySelectorAll('.mobile-menu nav a,.desktop-nav a')];
 const sections = [...document.querySelectorAll('main section[id]')];
 let scrollFrame;
 function updateScroll() {
-  if (pageLocked) return;
+  if (motion.scroll.isLocked) return;
   const readingLine = header.getBoundingClientRect().bottom + 80;
   header.classList.toggle('scrolled', $('#inicio').getBoundingClientRect().bottom < readingLine);
   let current = sections[0].id;
@@ -241,15 +224,13 @@ track.addEventListener('click',event=>{
 new ResizeObserver(syncCarousel).observe(track);syncCarousel();
 
 // Small route chooser, shared by the map popup and address card.
-const routeModal=$('#route-modal');let routeTrigger;
+const routeModal=$('#route-modal');
 function openRoutes(trigger){
  if(routeModal.open)return;
  if(!menu.hidden)closeMenu(null,true);
- routeTrigger=trigger;lockPage();routeModal.showModal();$('.route-close').focus({preventScroll:true});
+ motion.dialog.open(routeModal,{trigger,initialFocus:$('.route-close')});
 }
 document.addEventListener('click',event=>{const trigger=event.target.closest('[data-route]');if(trigger)openRoutes(trigger)});
 $('.location-details').addEventListener('click',event=>{if(!event.target.closest('button,a'))openRoutes($('.route-trigger'))});
 document.addEventListener('clerian:routes',event=>openRoutes(event.detail));
-$('.route-close').addEventListener('click',()=>routeModal.close());
-routeModal.addEventListener('click',event=>{if(event.target===routeModal){const r=routeModal.getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)routeModal.close()}});
-routeModal.addEventListener('close',()=>{unlockPage();routeTrigger?.focus({preventScroll:true})});
+$('.route-close').addEventListener('click',()=>motion.dialog.close(routeModal));

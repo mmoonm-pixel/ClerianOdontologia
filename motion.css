@@ -1,0 +1,97 @@
+/* One motion language; no changes to brand, content or the approved layouts. */
+:root{
+ --motion-fast:180ms;--motion-normal:300ms;--motion-dialog:300ms;--motion-exit:260ms;
+ --motion-card:380ms;--motion-reveal:650ms;--motion-atmosphere:20s;
+ --motion-ease:cubic-bezier(.22,.75,.25,1);--motion-enter:cubic-bezier(.22,1,.36,1);--motion-leave:cubic-bezier(.4,0,.6,1);
+ --motion-distance:18px;--motion-scale:.98;--motion-blur:10px;--ease:var(--motion-ease);
+}
+html{scroll-behavior:auto}
+.button,.text-link svg,.desktop-nav a,.modal-close{transition-duration:var(--motion-fast)}
+.service-card,.review-card,.editorial-card{transition-duration:var(--motion-card)}
+.motion-ready .reveal{transform:translateY(var(--motion-distance));transition-duration:var(--motion-reveal);transition-timing-function:var(--motion-enter)}
+.motion-ready .reveal.is-visible{transform:none}
+
+/* Native dialogs retain their focus/inert semantics throughout exit motion. */
+dialog.motion-dialog[open],#booking-modal.motion-dialog[open]{animation:none;transform:none;opacity:1;max-height:calc(var(--dialog-viewport,100dvh) - 32px - env(safe-area-inset-top) - env(safe-area-inset-bottom));overscroll-behavior:contain}
+dialog.motion-dialog::backdrop,#booking-modal.motion-dialog::backdrop{background:rgba(45,25,44,.52);backdrop-filter:blur(var(--motion-blur));-webkit-backdrop-filter:blur(var(--motion-blur))}
+dialog.motion-dialog[data-phase=entering]::backdrop{animation:clerian-backdrop-in var(--motion-dialog) var(--motion-enter) both}
+dialog.motion-dialog[data-phase=closing]::backdrop{animation:clerian-backdrop-out var(--motion-exit) var(--motion-leave) both}
+@keyframes clerian-backdrop-in{from{opacity:var(--backdrop-opacity-start,0)}to{opacity:1}}
+@keyframes clerian-backdrop-out{from{opacity:var(--backdrop-opacity-start,1)}to{opacity:0}}
+.dialog-keyboard dialog.motion-dialog[open],.dialog-keyboard #booking-modal.motion-dialog[open],.dialog-keyboard #article-modal[open]{top:calc(var(--dialog-viewport-top,0px) + 12px);bottom:auto;margin-block:0;max-height:calc(var(--dialog-viewport,100dvh) - 24px)}
+#booking-modal .modal-close{position:sticky;top:14px;flex-shrink:0}
+
+/* Editorial reading lives above the current page; only this scrollport moves. */
+#article-modal{width:min(1100px,calc(100% - 56px));height:min(900px,calc(var(--dialog-viewport,100dvh) - 48px));max-height:calc(var(--dialog-viewport,100dvh) - 48px);padding:0;border:1px solid rgba(255,255,255,.6);border-radius:28px;background:var(--blush);color:var(--ink);box-shadow:0 32px 100px rgba(45,25,44,.24);overflow:hidden}
+#article-modal[open]{display:flex;flex-direction:column}
+.article-toolbar{display:flex;align-items:center;justify-content:space-between;flex-shrink:0;padding:13px 24px;border-bottom:1px solid var(--line);background:rgba(252,247,250,.96);z-index:2}
+.article-toolbar button{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-width:44px;min-height:44px;border:1px solid transparent;border-radius:50%;padding:10px;background:transparent;color:var(--wine);transition:background var(--motion-fast),transform var(--motion-fast)}
+.article-toolbar [data-article-back]{font:500 11px/1.5 var(--sans);border-radius:30px;padding-inline:10px 15px}
+.article-toolbar svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;transition:transform var(--motion-fast)}
+.article-toolbar button:hover{background:var(--lavender)}
+.article-toolbar [data-article-back]:hover svg{transform:translateX(-3px)}
+.article-toolbar [data-article-close]:hover{transform:rotate(5deg)}
+.article-toolbar button:active{transform:scale(.95)}
+.article-scroll{flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;scrollbar-width:thin;scrollbar-color:var(--rose) var(--blush);scroll-padding-top:20px}
+.article-scroll:focus-visible{outline:2px solid var(--rose);outline-offset:-4px}
+.article-modal-content{min-height:100%}
+#article-modal .reading-intro{grid-template-columns:1.6fr 1fr;gap:35px;padding:38px 42px 35px}
+#article-modal .reading-intro h1{font-size:clamp(35px,3.6vw,48px);line-height:1.06;margin:16px 0 20px}
+#article-modal .reading-intro-copy>p{font-size:13px;line-height:1.9}
+#article-modal .reading-intro-copy,#article-modal .reading-figure{animation:none}
+#article-modal .reading-figure img{max-height:290px;border-radius:65px 20px 20px 20px;aspect-ratio:1.05;object-fit:cover}
+#article-modal .reading-layout{grid-template-columns:155px minmax(0,1fr);gap:40px;padding:35px 42px 45px}
+#article-modal .reading-index{position:static}
+#article-modal .reading-index nav{padding-left:15px;gap:13px}
+#article-modal .reading-body h2{font-size:31px}
+#article-modal .reading-body p,#article-modal .reading-body li{font-size:14px;line-height:1.95}
+#article-modal .reading-body>section{margin-bottom:36px;scroll-margin-top:20px}
+#article-modal .reading-sources li,#article-modal .reading-sources p{font-size:11px}
+#article-modal .reading-cta p{font-size:12px}
+.article-progress{height:2px;background:var(--lavender);flex-shrink:0}
+.article-progress span{display:block;width:100%;height:100%;transform:scaleX(0);transform-origin:left;background:var(--wine)}
+
+/* Soft gradients are painted once; only the composited layers move. */
+.services,.essence,.editorial-section,.reviews-section,.faq-section,.booking{overflow:clip}
+.services::before,.services::after,.essence::before,.essence::after,.editorial-section::before,.editorial-section::after,.reviews-section::before,.reviews-section::after,.faq-section::before,.faq-section::after,.booking::before,.booking::after{
+ content:'';position:absolute;pointer-events:none;z-index:-1;border-radius:50%;width:min(860px,110vw);height:min(740px,105vw);filter:none;will-change:auto;
+ animation:clerian-drift-a var(--motion-atmosphere) ease-in-out infinite alternate;animation-play-state:paused;
+}
+.services::before{inset:-15% -15% auto auto;background:radial-gradient(ellipse,rgba(183,129,158,.24),rgba(234,213,225,.35) 33%,transparent 69%);animation-duration:17s;animation-delay:-4s}
+.services::after{inset:auto auto -35% -12%;background:radial-gradient(ellipse,rgba(183,129,158,.17),rgba(234,213,225,.22) 30%,transparent 67%);animation-name:clerian-drift-b;animation-duration:23s;animation-delay:-11s}
+.essence::before{inset:-30% auto auto -13%;background:radial-gradient(ellipse,rgba(183,129,158,.38),rgba(135,80,109,.28) 32%,transparent 69%);animation-duration:18s;animation-delay:-3s}
+.essence::after{inset:auto -10% -48% auto;background:radial-gradient(ellipse,rgba(183,129,158,.24),rgba(135,80,109,.4) 33%,transparent 69%);animation-name:clerian-drift-b;animation-duration:25s;animation-delay:-14s}
+.editorial-section::before{inset:-10% -20% auto auto;background:radial-gradient(ellipse,rgba(234,213,225,.48),rgba(183,129,158,.12) 38%,transparent 70%);animation-name:clerian-reflection;animation-duration:21s;animation-delay:-7s}
+.editorial-section::after{inset:auto auto -18% -25%;background:radial-gradient(ellipse,rgba(234,213,225,.5),transparent 68%);animation-name:clerian-drift-b;animation-duration:24s;animation-delay:-16s}
+.reviews-section::before{inset:-42% auto auto -10%;background:radial-gradient(ellipse,rgba(183,129,158,.29),rgba(135,80,109,.16) 36%,transparent 70%);animation-duration:19s;animation-delay:-6s}
+.reviews-section::after{inset:auto -12% -48% auto;background:radial-gradient(ellipse,rgba(183,129,158,.2),rgba(135,80,109,.27) 34%,transparent 69%);animation-name:clerian-reflection;animation-duration:23s;animation-delay:-16s}
+.faq-section::before{inset:-42% -20% auto auto;background:radial-gradient(ellipse,rgba(234,213,225,.22),transparent 66%);animation-duration:25s;animation-delay:-8s}
+.faq-section::after{content:none}
+.booking::before{inset:-80% auto auto -12%;background:radial-gradient(ellipse,rgba(234,213,225,.38),transparent 66%);animation-name:clerian-reflection;animation-duration:22s;animation-delay:-12s}
+.booking::after{content:none}
+.booking-card::before{animation:none}
+.atmosphere-active::before,.atmosphere-active::after{animation-play-state:running;will-change:transform,opacity}
+html[data-scroll-locked] .atmosphere-active::before,html[data-scroll-locked] .atmosphere-active::after{animation-play-state:paused}
+@keyframes clerian-drift-a{from{transform:translate3d(-9%,-5%,0) scale(.93);opacity:.65}to{transform:translate3d(11%,9%,0) scale(1.12);opacity:1}}
+@keyframes clerian-drift-b{from{transform:translate3d(7%,-8%,0) rotate(-8deg) scale(1.05);opacity:.72}to{transform:translate3d(-12%,6%,0) rotate(6deg) scale(.95);opacity:1}}
+@keyframes clerian-reflection{from{transform:translate3d(-10%,5%,0) scale(.94,1.03);opacity:.6}to{transform:translate3d(13%,-7%,0) scale(1.09,.95);opacity:.96}}
+@media(max-width:767px){
+ #article-modal{left:max(8px,env(safe-area-inset-left));right:max(8px,env(safe-area-inset-right));margin-inline:0;width:auto;max-width:none;height:calc(var(--dialog-viewport,100dvh) - 16px - env(safe-area-inset-top) - env(safe-area-inset-bottom));max-height:calc(var(--dialog-viewport,100dvh) - 16px - env(safe-area-inset-top) - env(safe-area-inset-bottom));border-radius:24px}
+ .article-toolbar{padding:8px 13px}.article-toolbar [data-article-back]{font-size:10px}
+ #article-modal .reading-intro{grid-template-columns:1fr;padding:27px 23px;gap:22px}
+ #article-modal .reading-intro h1{font-size:35px;margin-block:15px 20px}
+ #article-modal .reading-intro-copy>p{font-size:12px;line-height:1.95}
+ #article-modal .reading-figure img{aspect-ratio:1.9;max-height:180px;border-radius:42px 18px 18px 18px}
+ #article-modal .reading-layout{grid-template-columns:1fr;gap:28px;padding:26px 23px 40px}
+ #article-modal .reading-index nav{gap:9px}#article-modal .reading-index a{font-size:10px}
+ #article-modal .reading-body h2{font-size:29px}#article-modal .reading-body p,#article-modal .reading-body li{font-size:13px;line-height:1.95}
+ #article-modal .reading-cta{padding:24px 20px}#article-modal .reading-cta h2{font-size:28px}#article-modal .reading-cta p{font-size:12px}
+ dialog.motion-dialog[open],#booking-modal.motion-dialog[open]{max-height:calc(var(--dialog-viewport,100dvh) - 24px - env(safe-area-inset-top) - env(safe-area-inset-bottom))}
+ .atmosphere-active::before,.atmosphere-active::after{width:min(530px,115vw);height:min(560px,130vw)}
+}
+@media(prefers-reduced-motion:reduce){
+ :root{--motion-dialog:0ms;--motion-exit:0ms;--motion-reveal:0ms;--motion-fast:0ms;--motion-card:0ms;--motion-blur:0px}
+ .motion-ready .reveal{opacity:1;transform:none;transition:none}
+ .atmosphere-active::before,.atmosphere-active::after{animation:none;will-change:auto}
+ dialog.motion-dialog::backdrop{animation:none}
+}

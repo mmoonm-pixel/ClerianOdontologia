@@ -18,3 +18,11 @@ Os campos, validação e geração de mensagem WhatsApp preservam o fluxo existe
 A infraestrutura Chromium local não confia na CA do proxy. Exclusivamente nos testes, os tiles são encaminhados por curl com validação TLS, identificação e Referer, retornando os bytes reais do OpenStreetMap. A aplicação publicada acessa os tiles diretamente por HTTPS. Não há mocks ou desativação de verificação TLS.
 
 Testes de toque foram realizados em emulação do Chromium, sem aparelho físico Safari/iOS ou Android.
+
+## Refinamento final de componentes
+
+Testado em 375, 390, 430, 768 e 1440 px: cards compactos; controles ocultos apenas abaixo de 640 px; seis serviços ativados clicando título, ícone, descrição, superfície e botão; seleção correta no modal único; gesto de toque e arraste por mouse sem abrir modal; snap preservado. Uma ativação estacionária durante o snap aguarda sua conclusão, enquanto gestos com deslocamento suprimem o clique.
+
+Revelações verificadas na entrada, na saída completa e no retorno, com limiar de 15% para entrada, sem reset nas pequenas oscilações. Fundo contínuo independente da revelação. Card de agendamento medido em cerca de 254 px de altura no mobile, 225 px em desktop e 190 px em tablet. Copy da doutora ampliada com fotografia de fundo preservada. Hero, localização e rodapé conservam o HTML aprovado; map.js não foi modificado.
+
+Capturas completas estabilizam apenas o estado de revelação no contexto de screenshot para mostrar todas as seções. A aplicação mantém as animações repetidas.

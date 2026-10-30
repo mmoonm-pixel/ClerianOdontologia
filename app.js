@@ -83,7 +83,7 @@ function openBooking(trigger) {
   modal.scrollTop = 0;
   $('.modal-close').focus({ preventScroll: true });
 }
-document.querySelectorAll('[data-book]').forEach(button => button.addEventListener('click', () => openBooking(button)));
+document.querySelectorAll('[data-book]:not(.service-card [data-book])').forEach(button => button.addEventListener('click', () => openBooking(button)));
 $('.modal-close').addEventListener('click', () => modal.close());
 modal.addEventListener('click', event => {
   if (event.target !== modal) return;
@@ -122,13 +122,29 @@ document.addEventListener('visibilitychange', videoPreference);
 videoPreference();
 
 const reveals = [...document.querySelectorAll('.reveal')];
-if ('IntersectionObserver' in window && !reducedMotion.matches) {
+let revealObserver;
+function configureReveals() {
+  revealObserver?.disconnect();
+  if (reducedMotion.matches || !('IntersectionObserver' in window)) {
+    document.body.classList.remove('motion-ready');
+    reveals.forEach(element => element.classList.add('is-visible'));
+    return;
+  }
   document.body.classList.add('motion-ready');
-  const observer = new IntersectionObserver(entries => {
-    for (const entry of entries) if (entry.isIntersecting) { entry.target.classList.add('is-visible'); observer.unobserve(entry.target); }
-  }, { threshold: .06, rootMargin: '0px 0px -12px 0px' });
-  reveals.forEach(element => observer.observe(element));
+  document.querySelectorAll('main section').forEach(section => {
+    section.querySelectorAll('.reveal').forEach((element,index) => element.style.setProperty('--reveal-delay',`${Math.min(index,2)*120}ms`));
+  });
+  // Enter at 15%; re-arm only after leaving the viewport completely.
+  revealObserver = new IntersectionObserver(entries => {
+    for (const entry of entries) {
+      if (entry.intersectionRatio >= .15) entry.target.classList.add('is-visible');
+      else if (!entry.isIntersecting) entry.target.classList.remove('is-visible');
+    }
+  }, {threshold:[0,.15],rootMargin:'-12px 0px -12px 0px'});
+  reveals.forEach(element => revealObserver.observe(element));
 }
+configureReveals();
+reducedMotion.addEventListener('change',configureReveals);
 const links = [...document.querySelectorAll('.mobile-menu nav a')];
 const sections = [...document.querySelectorAll('main section[id]')];
 let scrollFrame;
@@ -179,16 +195,38 @@ track.addEventListener('keydown',event=>{
     event.preventDefault();goTo(event.key==='Home'?0:event.key==='End'?cards.length-1:activeCard+(event.key==='ArrowRight'?1:-1));
   }
 });
-let drag;
+let gesture, suppressClickUntil=0, scrolling=false, settleTimer, pendingCard;
+track.addEventListener('scroll',()=>{
+  scrolling=true;clearTimeout(settleTimer);
+  settleTimer=setTimeout(()=>{scrolling=false;if(pendingCard){const card=pendingCard;pendingCard=null;openBooking(card.querySelector('[data-book]'));}},180);
+},{passive:true});
 track.addEventListener('pointerdown',event=>{
-  if(event.pointerType!=='mouse'||event.button!==0||event.target.closest('button,a'))return;
-  drag={x:event.clientX,scroll:track.scrollLeft,id:event.pointerId,moved:false};
+  if(event.button!==0 && event.pointerType==='mouse')return;
+  pendingCard=null;
+  gesture={x:event.clientX,y:event.clientY,scroll:track.scrollLeft,id:event.pointerId,moved:false,type:event.pointerType,startedMoving:scrolling};
 });
 track.addEventListener('pointermove',event=>{
-  if(!drag)return;
-  const dx=event.clientX-drag.x;
-  if(Math.abs(dx)>5){drag.moved=true;track.setPointerCapture(event.pointerId);track.classList.add('is-dragging');track.scrollLeft=drag.scroll-dx;}
+  if(!gesture||event.pointerId!==gesture.id)return;
+  const dx=event.clientX-gesture.x,dy=event.clientY-gesture.y;
+  if(Math.hypot(dx,dy)>8)gesture.moved=true;
+  if(gesture.type==='mouse'&&gesture.moved){
+    track.setPointerCapture(event.pointerId);track.classList.add('is-dragging');
+    track.scrollLeft=gesture.scroll-dx;event.preventDefault();
+  }
 });
-function finishDrag(){if(!drag)return;track.classList.remove('is-dragging');const snap=activeCard;drag=null;goTo(snap);}
-track.addEventListener('pointerup',finishDrag);track.addEventListener('pointercancel',finishDrag);
+function finishGesture(event){
+  if(!gesture||event.pointerId!==gesture.id)return;
+  if(gesture.moved||event.type==='pointercancel')suppressClickUntil=performance.now()+250;
+  if(gesture.type==='mouse'&&gesture.moved){track.classList.remove('is-dragging');syncCarousel();goTo(activeCard);}
+  gesture=null;
+}
+track.addEventListener('pointerup',finishGesture);track.addEventListener('pointercancel',finishGesture);
+window.addEventListener('pointerup',finishGesture);
+// One delegated activation for the whole card and its existing keyboard button.
+track.addEventListener('click',event=>{
+  const card=event.target.closest('.service-card');if(!card)return;
+  if(event.detail!==0&&performance.now()<suppressClickUntil){event.preventDefault();return;}
+  if(event.detail!==0&&scrolling){pendingCard=card;return;}
+  openBooking(card.querySelector('[data-book]'));
+});
 new ResizeObserver(syncCarousel).observe(track);syncCarousel();

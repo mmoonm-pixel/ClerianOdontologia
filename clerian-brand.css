@@ -1,0 +1,22 @@
+
+/* Clerian brand system — overrides all original BYO colors */
+:root{--cream:#fcf7fa;--ink:#341a30;--terra:#713451;--beige:#ead5e1;--orange:#a65e82;--clerian-plum:#4a204b;--clerian-wine:#713451;--clerian-rose:#b7819e;--clerian-ivory:#fcf7fa;color-scheme:light}
+html,body{background:#fcf7fa;color:var(--ink)}
+body::before{content:"";position:fixed;inset:-30%;z-index:-1;pointer-events:none;background:radial-gradient(ellipse at 22% 30%,#e9c8dc99,transparent 43%),radial-gradient(ellipse at 80% 72%,#bb86ab66,transparent 45%),linear-gradient(135deg,#fcf7fa,#f0e2ed,#fcf7fa);animation:clerianAmbient 22s ease-in-out infinite alternate}
+@keyframes clerianAmbient{to{transform:translate3d(4%,-3%,0) scale(1.08)}}
+header,header.scrolled{background:rgba(67,25,53,.16)!important;backdrop-filter:blur(18px) saturate(145%)!important;-webkit-backdrop-filter:blur(18px) saturate(145%)!important;border:1px solid #ffffff66!important;box-shadow:0 12px 35px #2f102529!important}
+header .logo{mix-blend-mode:normal!important;border-radius:0!important;object-fit:contain!important;filter:drop-shadow(0 2px 4px #18091855)!important}
+header.menu-expanded{background:rgba(250,238,246,.94)!important}
+.hero:after{background:linear-gradient(90deg,#2b1126bb,#2b112633)!important}
+.section.services,.section.about,.section.professionals,.section.booking,#localizacao,footer{background:transparent!important}
+.services .card,.person,.map-panel{background:#fff9fce8!important;border:1px solid #a56a9255!important;box-shadow:0 14px 35px #50243b13}
+.card svg{stroke:var(--clerian-wine)!important;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+button,.button,.whatsapp{--terra:#713451}button:not(.glass):not(.modal-close),.button:not(.glass){background:#713451;color:white}
+#booking-modal{background:#fcf7fa!important;border:1px solid #dcb6cc!important;color:#341a30!important}
+.modal-header{background:#f5e8f0!important;border-bottom:1px solid #dcb6cc!important}
+.modal-scroll input,.modal-scroll select,.modal-scroll textarea{background:#fff!important;border-color:#cba1b9!important;color:#341a30!important}
+.nav-panel{background:rgba(250,238,246,.96)!important}
+.map-panel{overflow:hidden;border-radius:24px;min-height:390px}
+.map-panel iframe{display:block;width:100%;height:100%;min-height:390px;border:0;filter:saturate(.75) contrast(.98)}
+.about-copy{max-width:800px}
+@media(prefers-reduced-motion:reduce){body::before{animation:none}}

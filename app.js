@@ -1,8 +1,19 @@
-const $=s=>document.querySelector(s),services=['Odontopediatria','Ortodontia','Tratamento de canal','Implantes dentários','Próteses dentárias','Clareamento dental','Harmonização facial','Avaliação odontológica'];
+const $=s=>document.querySelector(s),services=['Odontopediatria','Ortodontia','Tratamento de canal','Implantes dentários','Próteses dentárias','Clareamento dental','Harmonização orofacial','Avaliação odontológica','Preenchimento labial','Cuidados gengivais'];
 const tooth='<path d="M31 21c-18-7-22 7-17 21 5 12 4 33 12 36 7 3 7-24 14-24s7 27 14 24c8-3 7-24 12-36 5-14 1-28-17-21-7 3-11 3-18 0Z"/><path d="M30 27q10 7 20 0"/>';
-const icons=[tooth+'<path d="M18 45q22 10 44 0"/>',tooth+'<path d="m68 10 3 8 8 3-8 3-3 8-3-8-8-3 8-3Z"/>','<path d="M24 20q16-9 32 0l-2 20H26Zm4 25h24l-5 33H33Zm-2 8 27-4m-26 12 25-4m-24 12 23-4m-22 12 20-4"/>','<path d="M43 12c-18 3-24 19-20 35l-7 9 10 4c2 13 9 21 23 21m-6-69c19 0 26 13 23 29m-29 3q8-6 15 0M35 64q12 6 22-3m-13-17-3 11 6 1m15 9 11-11m-7 14 10-10"/>','<path d="M43 28c-26-16-34 9-24 28 6 14 12 23 24 17 13 6 19-3 25-17 10-19 2-44-25-28Zm0 0c-2-14 5-20 18-19-1 14-8 20-18 19Z"/>'];
-const descriptions=['Cuidado acolhedor para a saúde bucal das crianças.','Avaliação e acompanhamento do alinhamento dos dentes.','Avaliação de necessidades endodônticas e saúde dental.','Possibilidades de reabilitação para dentes ausentes.','Alternativas para recuperar função e estética do sorriso.','Avaliação de opções para valorizar a cor dos dentes.','Cuidados estéticos faciais mediante avaliação profissional.','Converse com a equipe sobre suas necessidades.'];
-$('#cards').innerHTML=services.map((s,i)=>`<article class="card"><svg viewBox="0 0 90 90" aria-hidden="true">${icons[i%icons.length]}</svg><h3>${s}</h3><p>${descriptions[i]}</p><button data-book data-area="${s}" aria-pressed="false">Solicitar avaliação</button><span class="selected-label" hidden>✓ Serviço selecionado</span></article>`).join('');
+const icons=[
+'<circle cx="45" cy="45" r="25"/><path d="M45 27v36M27 45h36"/>',
+'<path d="M16 32q29-17 58 0M16 58q29 17 58 0M20 32v26m13-30v34m12-36v38m12-36v34m13-30v26"/>',
+tooth+'<path d="M40 25v38m-8-20 8 9 8-9"/>',
+'<path d="M40 10v45m-8 0h16m-16 7h16m-16 7h16m-8 0v11M24 20q16-12 32 0"/>',
+'<path d="M14 50q5-27 30-27t31 27q-2 23-31 23T14 50Z M22 46q23-10 45 0"/>',
+tooth+'<path d="m70 8 3 9 9 3-9 3-3 9-3-9-9-3 9-3"/>',
+'<path d="M47 12q-23 4-23 29l-8 12 10 5q2 22 23 22M47 12q20 0 20 23M37 47q8-6 17 0M40 66q10 5 18-3"/>',
+'<circle cx="45" cy="45" r="27"/><path d="M45 27v36M27 45h36"/>',
+'<path d="M15 52q28-23 60 0-30 28-60 0Zm0 0q29 8 60 0"/>',
+'<path d="M20 35q24-17 50 0M25 49q20 10 40 0M30 60q15 8 30 0"/>'
+];
+const descriptions=['Cuidado odontológico para crianças.','Alinhamento dos dentes e acompanhamento ortodôntico.','Avaliação e tratamento endodôntico.','Reabilitação de dentes ausentes.','Recuperação de função e estética do sorriso.','Avaliação de clareamento dental.','Avaliação estética e funcional da face.','Orientação individualizada para seu sorriso.','Procedimento sujeito à avaliação e disponibilidade.','Avaliação da saúde gengival e suas necessidades.'];
+$('#cards').innerHTML=services.map((s,i)=>`<article class="card"><svg viewBox="0 0 90 90" aria-hidden="true">${icons[i]}</svg><h3>${s}</h3><p>${descriptions[i]}</p><button data-book data-area="${s}" aria-pressed="false">Solicitar avaliação</button><span class="selected-label" hidden>✓ Serviço selecionado</span></article>`).join('');
 const modal=$('#booking-modal'),menu=$('#menu'),form=$('#booking-form'),menuButton=$('#menu-open'),header=document.querySelector('header'),shade=document.querySelector('.menu-shade');
 // Header focus styling follows the input method, rather than incidental programmatic focus.
 let headerKeyboard=false;document.documentElement.dataset.navInput='pointer';

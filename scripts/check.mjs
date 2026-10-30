@@ -1,3 +1,4 @@
+import './sync-article-booking.mjs';
 import { readFile, readdir, stat, access } from 'node:fs/promises';
 import { resolve, dirname, extname, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';

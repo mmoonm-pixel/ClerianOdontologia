@@ -48,7 +48,7 @@ A seção de depoimentos usa HTML estático para leitura imediata e reviews.js p
 
 ### Conteúdos educativos
 
-O catálogo da página inicial (`#conteudos`) abre quatro páginas HTML completas em `conteudos/<slug>/index.html`. Elas usam as fontes e os tokens existentes, o CSS isolado `editorial.css` e o aprimoramento progressivo `editorial.js` (progresso de leitura e indicação do tópico atual). Conteúdo, sumário, referências, retorno e CTA funcionam sem JavaScript. Não há dependências novas.
+O catálogo da página inicial (`#conteudos`) abre quatro páginas HTML completas em `conteudos/<slug>/index.html`. Elas usam as fontes e os tokens existentes, o CSS isolado `editorial.css` e o aprimoramento progressivo `editorial.js` (progresso de leitura e indicação do tópico atual). Conteúdo, sumário, referências e retorno funcionam sem JavaScript. O CTA abre o formulário diretamente sobre o artigo com JavaScript, sem navegar para a página inicial. O HTML do formulário é sincronizado a partir da página inicial por `scripts/sync-article-booking.mjs` durante a verificação e o build. Não há dependências novas.
 
 - `conteudos/prevenir-e-cuidar/`
 - `conteudos/o-primeiro-sorriso/`

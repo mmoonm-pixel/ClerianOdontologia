@@ -60,3 +60,8 @@ Chromium em 375, 390, 430, 768, 1024 e 1440 px: menus e âncoras; ausência de d
 - Comparação do HTML anterior confirmou preservação integral de todo o conteúdo fora da seção de Conteúdos, incluindo hero/vídeo, cabeçalho, especialidades, propósito, Dra. Clariane, 24 depoimentos, FAQ, mapa, agendamento, rodapé e diálogos. JavaScript desses componentes não foi alterado.
 - Artigos originais com introdução, cinco seções, conclusão, referências e CTA. Base principal: as duas páginas do Ministério da Saúde solicitadas; NHS como apoio no texto sobre gengiva. Não atribuídos à Dra. Clariane.
 - Nenhuma dependência nova. Novos recursos são HTML/CSS/JS e quatro SVGs locais.
+
+
+### Correção do CTA de agendamento nos artigos
+
+Nos quatro artigos, um clique em Agendar avaliação abre o mesmo formulário diretamente sobre a leitura, sem redirecionar nem exigir um segundo clique. Testado em Chromium a 375 e 1440 px: URL preservada, formulário único por página, campos/validação, período Tarde, preparação da mensagem para o WhatsApp oficial sem envio real, fechamento por botão e Escape, restauração de posição e foco. Sem erros de JavaScript. Capturas mobile e desktop conferidas. Página inicial e seus estilos/funcionalidades sem alterações.

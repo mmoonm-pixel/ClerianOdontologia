@@ -1,0 +1,10 @@
+BYO Clinic — arquivos para implementar o site conforme o prompt.
+
+assets/logo-byo-transparente.png: logo para cabeçalho e rodapé.
+assets/hero-byo.mp4: vídeo do hero desktop e mobile, sem áudio, em loop.
+assets/equipe-byo.jpeg: composição dos dois profissionais para Sobre a BYO.
+assets/dr-nykolas.jpeg: apresentação do Dr. Nykolas.
+assets/dra-brenda.jpeg: apresentação da Dra. Brenda.
+referencia/layout.jpeg: referência de layout; não usar como conteúdo do site.
+
+Copiar os assets para o projeto e usar caminhos locais. As fotos estão preservadas com seus textos originais. Este pacote contém os materiais, não um site implementado.

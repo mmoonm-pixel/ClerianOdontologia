@@ -48,3 +48,15 @@ Nova navegação com nove destinos reais, na mesma ordem em menus e rodapé. Adi
 24 relatos fornecidos pelo responsável, com cinco estrelas expressamente confirmadas na conversa. Conteúdo integral comparado automaticamente entre JSON e HTML para todos os 24 registros. Sem fotos, avatares ou datas. Expansão/recolhimento dos textos longos preserva cada palavra. Não foram publicadas médias agregadas ou notas coletadas por API.
 
 Chromium em 375, 390, 430, 768, 1024 e 1440 px: menus e âncoras; ausência de duplicação de IDs; ausência de overflow horizontal; carrossel de relatos por toque, mouse, setas e teclado até o último relato; revelações ao entrar/sair/retornar; modo de movimento reduzido; expansão de texto e FAQ. Tiles do mapa preservam a ponte TLS usada nas validações anteriores. Capturas mobile/desktop dos relatos e dos menus foram inspecionadas.
+
+
+## Área editorial — 30/10/2026
+
+- Chromium real nas larguras 375, 390, 430, 768, 1024 e 1440 px. Quatro páginas lidas em todas as larguras; sem overflow horizontal e sem erros JavaScript.
+- Catálogo com um destaque e três artigos secundários, antes dos 24 depoimentos; removidos os dois cards de Instagram dessa seção. Links oficiais no rodapé preservados.
+- Clique em todos os cards, URLs próprias, sumários, fontes, retorno ao catálogo e fluxo de agendamento existente verificados. 95 destinos locais verificados, sem links vazios, âncoras ausentes ou IDs duplicados.
+- Conteúdo completo utilizável sem JavaScript; preferência por movimento reduzido verificada. Revelação do catálogo testada na entrada e no retorno à viewport. Progresso de leitura e tópico atual funcionais.
+- Ilustrações carregadas; capturas do catálogo e da leitura, incluindo artigo completo, inspecionadas em mobile e desktop.
+- Comparação do HTML anterior confirmou preservação integral de todo o conteúdo fora da seção de Conteúdos, incluindo hero/vídeo, cabeçalho, especialidades, propósito, Dra. Clariane, 24 depoimentos, FAQ, mapa, agendamento, rodapé e diálogos. JavaScript desses componentes não foi alterado.
+- Artigos originais com introdução, cinco seções, conclusão, referências e CTA. Base principal: as duas páginas do Ministério da Saúde solicitadas; NHS como apoio no texto sobre gengiva. Não atribuídos à Dra. Clariane.
+- Nenhuma dependência nova. Novos recursos são HTML/CSS/JS e quatro SVGs locais.

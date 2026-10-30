@@ -44,3 +44,15 @@ O cabeçalho usa o menu de sorriso em todas as larguras. O hero reproduz o víde
 Polimento de interface: títulos em Cormorant Garamond (OFL, hospedada localmente em WOFF2); navegação desktop horizontal; painel mobile com fechamento próprio; seletor de rotas compartilhado entre mapa e endereço, com Google Maps e Waze. O formulário empilha data/período em celulares, sem alterar o fluxo WhatsApp.
 
 A seção de depoimentos usa HTML estático para leitura imediata e reviews.js para navegação, snap e expansão dos comentários. testimonials.json registra os 24 relatos enviados pelo responsável e a confirmação das notas. Conteúdos e dúvidas possuem âncoras próprias e informações práticas já documentadas.
+
+
+### Conteúdos educativos
+
+O catálogo da página inicial (`#conteudos`) abre quatro páginas HTML completas em `conteudos/<slug>/index.html`. Elas usam as fontes e os tokens existentes, o CSS isolado `editorial.css` e o aprimoramento progressivo `editorial.js` (progresso de leitura e indicação do tópico atual). Conteúdo, sumário, referências, retorno e CTA funcionam sem JavaScript. Não há dependências novas.
+
+- `conteudos/prevenir-e-cuidar/`
+- `conteudos/o-primeiro-sorriso/`
+- `conteudos/gengiva-sangrando/`
+- `conteudos/saude-bucal-e-bem-estar/`
+
+As ilustrações SVG originais ficam em `assets/editorial/`. Para revisar os textos, edite as páginas estáticas correspondentes. As fontes consultadas estão ao final de cada artigo e documentadas em `DADOS-E-FONTES.md`.

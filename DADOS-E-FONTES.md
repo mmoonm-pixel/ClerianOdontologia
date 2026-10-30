@@ -45,3 +45,16 @@ O carrossel passou a mostrar apenas seis áreas documentadas nas fontes consulta
 Os 24 relatos e nomes foram transcritos do conteúdo enviado pelo responsável nesta conversa. O responsável confirmou expressamente que todos têm cinco estrelas. A origem Google foi indicada no pedido; não foi realizada verificação independente por API ou em fichas individuais. Os textos completos foram preservados em testimonials.json e no HTML. Comentários maiores têm expansão de leitura, sem reescrita ou cortes permanentes. Sem datas, fotos, avatares, nota média agregada ou schema de avaliações. Nenhum atendimento atual ou credencial foi inferido dos relatos.
 
 Conteúdos aponta somente aos dois perfis oficiais já utilizados no site, sem inventar artigos ou publicações. Dúvidas frequentes usa informações práticas já confirmadas sobre endereço, canal de contato e fluxo de solicitação/confirmacão de agendamento.
+
+
+## Área editorial — artigos educativos
+
+Quatro páginas estáticas originais em `conteudos/`, sem autoria ou revisão clínica atribuída à Dra. Clariane. Ilustrações vetoriais originais em `assets/editorial/`, sem representação de resultados de tratamentos. Tempo de leitura estimado a 180 palavras/minuto.
+
+Fontes acessadas e lidas em 30/10/2026:
+
+- Ministério da Saúde, Saúde bucal: https://www.gov.br/saude/pt-br/assuntos/saude-de-a-a-z/s/saude-bucal — higiene, flúor, fio dental, alimentação, gengiva, mastigação, próteses, boca seca e alterações na boca. Base dos artigos 01, 03 e 04; apoio do 02.
+- Ministério da Saúde, Saúde bucal na primeira infância: https://www.gov.br/saude/pt-br/assuntos/saude-de-a-a-z/s/saude-da-crianca/primeira-infancia/saude-bucal/saude-bucal — dentes de leite, escovação, supervisão, fio dental, alimentação e crescimento. Base do artigo 02.
+- NHS, Gum disease: https://www.nhs.uk/conditions/gum-disease/ — sinais gengivais, avaliação profissional e higiene. Referência complementar do artigo 03, sem transposição de orientações sobre serviços britânicos para o Brasil.
+
+Os textos são sínteses educativas originais, sem cópia integral das fontes, diagnósticos, promessas de resultados, técnicas clínicas atribuídas à Clerian ou divulgação de serviços não confirmados. Referências clicáveis constam ao final de cada página.
